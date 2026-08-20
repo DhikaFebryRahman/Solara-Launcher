@@ -28,9 +28,9 @@ namespace MinecraftLauncher.Core
             return Path.Combine(appData, ".minecraft");
         }
 
-        public static async Task<InstallResult> InstallAsync(string playerVersion, IProgress<string> progress, CancellationToken ct)
+        public static async Task<InstallResult> InstallAsync(string playerVersion, string gameDirectory, IProgress<string> progress, CancellationToken ct)
         {
-            string gameDir = GetGameDirectory();
+            string gameDir = gameDirectory;
             Directory.CreateDirectory(gameDir);
 
             VersionManifestEntry entry = await ResolveManifestEntryAsync(gameDir, playerVersion, progress, ct).ConfigureAwait(false);

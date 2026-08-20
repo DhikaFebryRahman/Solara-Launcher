@@ -7,7 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
                 
-                <!-- Custom Stitch Colors -->
+                <!-- Custom Stitch Colors (Dibutuhkan oleh Frontend) -->
                 <ResourceDictionary>
                     <SolidColorBrush x:Key="StitchBackground" Color="#111319" />
                     <SolidColorBrush x:Key="StitchSurface" Color="#171A23" />

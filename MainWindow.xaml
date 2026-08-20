@@ -4,8 +4,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Solara Launcher" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource StitchBackground}"
-        Foreground="{StaticResource StitchTextPrimary}"
+        Background="{DynamicResource StitchBackground}"
+        Foreground="{DynamicResource StitchTextPrimary}"
         FontFamily="Inter, Segoe UI, sans-serif">
     
     <Grid>
@@ -15,23 +15,23 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <Border Grid.Column="0" Background="{StaticResource StitchSurface}" BorderBrush="{StaticResource StitchBorder}" BorderThickness="0,0,1,0">
+        <Border Grid.Column="0" Background="{DynamicResource StitchSurface}" BorderBrush="{DynamicResource StitchBorder}" BorderThickness="0,0,1,0">
             <StackPanel Margin="0,32,0,0">
-                <TextBlock Text="MINECRAFT" FontWeight="Bold" FontSize="20" Margin="24,0,0,32" Foreground="{StaticResource StitchPrimary}"/>
+                <TextBlock Text="MINECRAFT" FontWeight="Bold" FontSize="20" Margin="24,0,0,32" Foreground="{DynamicResource StitchPrimary}"/>
                 
                 <ListBox x:Name="SidebarMenu" Background="Transparent" BorderThickness="0" SelectedIndex="0" SelectionChanged="SidebarMenu_SelectionChanged">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="24,12"/>
                             <Setter Property="Margin" Value="0,4"/>
-                            <Setter Property="Foreground" Value="{StaticResource StitchTextSecondary}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource StitchTextSecondary}"/>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Foreground" Value="{StaticResource StitchPrimary}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource StitchPrimary}"/>
                                     <Setter Property="Background" Value="#1A7C5CFC"/> <!-- Semi transparent primary -->
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource StitchSurfaceOverlay}"/>
+                                    <Setter Property="Background" Value="{DynamicResource StitchSurfaceOverlay}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -47,12 +47,6 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="FolderDownload" Width="20" Height="20" Margin="0,0,12,0"/>
                             <TextBlock Text="Installations" FontSize="15" FontWeight="SemiBold"/>
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="TshirtCrew" Width="20" Height="20" Margin="0,0,12,0"/>
-                            <TextBlock Text="Skins" FontSize="15" FontWeight="SemiBold"/>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
@@ -78,37 +72,89 @@
                 <TextBlock Grid.Row="0" Text="Dashboard - Play" FontSize="32" FontWeight="Bold" Margin="0,0,0,24"/>
                 
                 <!-- Main Card -->
-                <Border Grid.Row="1" Background="{StaticResource StitchSurface}" CornerRadius="16" BorderBrush="{StaticResource StitchBorder}" BorderThickness="1">
+                <Border Grid.Row="1" Background="{DynamicResource StitchSurface}" CornerRadius="16" BorderBrush="{DynamicResource StitchBorder}" BorderThickness="1">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
-                        <TextBlock Text="PLAYER CONFIGURATION" FontSize="13" FontWeight="Bold" Foreground="{StaticResource StitchTextSecondary}" Margin="0,0,0,16"/>
+                        <TextBlock Text="PLAYER CONFIGURATION" FontSize="13" FontWeight="Bold" Foreground="{DynamicResource StitchTextSecondary}" Margin="0,0,0,16"/>
                         
-                        <TextBox x:Name="TxtPlayerName" materialDesign:HintAssist.Hint="Player Name" Margin="0,0,0,16" Foreground="White" BorderBrush="{StaticResource StitchBorder}"/>
+                        <TextBlock Text="Name Player" FontSize="12" Foreground="{DynamicResource StitchTextSecondary}" Margin="0,0,0,4" HorizontalAlignment="Left"/>
+                        <TextBox x:Name="TxtPlayerName" materialDesign:HintAssist.Hint="Masukkan nama pemain..." Margin="0,0,0,16" BorderBrush="{DynamicResource StitchBorder}"/>
                         
-                        <TextBox x:Name="TxtVersion" materialDesign:HintAssist.Hint="Version (e.g. 1.20.1)" Margin="0,0,0,32" Foreground="White" BorderBrush="{StaticResource StitchBorder}"/>
+                        <TextBlock Text="Minecraft Version" FontSize="12" Foreground="{DynamicResource StitchTextSecondary}" Margin="0,0,0,4" HorizontalAlignment="Left"/>
+                        <ComboBox x:Name="CmbVersion" materialDesign:HintAssist.Hint="Pilih versi Minecraft" Margin="0,0,0,32" BorderBrush="{DynamicResource StitchBorder}"/>
                         
-                        <Button x:Name="BtnLaunch" Content="PLAY" Height="56" FontSize="18" FontWeight="Bold" Background="{StaticResource StitchPrimary}" BorderThickness="0" materialDesign:ButtonAssist.CornerRadius="8" Click="BtnLaunch_Click"/>
+                        <Button x:Name="BtnLaunch" Content="PLAY" Height="56" FontSize="18" FontWeight="Bold" Background="{DynamicResource StitchPrimary}" BorderThickness="0" materialDesign:ButtonAssist.CornerRadius="8" Click="BtnLaunch_Click"/>
                     </StackPanel>
                 </Border>
 
                 <!-- Status Panel -->
-                <Border Grid.Row="2" Margin="0,24,0,0" Background="{StaticResource StitchSurfaceOverlay}" CornerRadius="8" Padding="16">
+                <Border Grid.Row="2" Margin="0,24,0,0" Background="{DynamicResource StitchSurfaceOverlay}" CornerRadius="8" Padding="16">
                     <StackPanel>
-                        <TextBlock x:Name="LblStatus" Text="Ready" Foreground="{StaticResource StitchTextSecondary}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
-                        <ProgressBar x:Name="ProgressBarStatus" IsIndeterminate="True" Visibility="Collapsed" Height="4" Foreground="{StaticResource StitchPrimary}" Background="{StaticResource StitchBorder}"/>
+                        <TextBlock x:Name="LblStatus" Text="Ready" Foreground="{DynamicResource StitchTextSecondary}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                        <ProgressBar x:Name="ProgressBarStatus" IsIndeterminate="True" Visibility="Collapsed" Height="4" Foreground="{DynamicResource StitchPrimary}" Background="{DynamicResource StitchBorder}"/>
                     </StackPanel>
                 </Border>
             </Grid>
 
             <!-- INSTALLATIONS VIEW -->
             <Grid x:Name="InstallationsView" Visibility="Collapsed">
-                <TextBlock Text="Installations" FontSize="32" FontWeight="Bold" Margin="0,0,0,24"/>
-                <TextBlock Text="Fitur instalasi khusus belum tersedia di pratinjau ini." FontSize="16" Foreground="{StaticResource StitchTextSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            </Grid>
-
-            <!-- SKINS VIEW -->
-            <Grid x:Name="SkinsView" Visibility="Collapsed">
-                <TextBlock Text="Skins" FontSize="32" FontWeight="Bold" Margin="0,0,0,24"/>
-                <TextBlock Text="Fitur kustomisasi skin belum tersedia di pratinjau ini." FontSize="16" Foreground="{StaticResource StitchTextSecondary}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Grid.Row="0" Text="Installations" FontSize="32" FontWeight="Bold" Margin="0,0,0,24"/>
+                
+                <ListBox x:Name="ListInstallations" Grid.Row="1" Background="Transparent" BorderThickness="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0,0,0,8"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{DynamicResource StitchSurface}" CornerRadius="12"
+                                    BorderBrush="{DynamicResource StitchBorder}" BorderThickness="1" Padding="16">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Version}" FontSize="16" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Directory}" FontSize="12" Foreground="{DynamicResource StitchTextSecondary}"
+                                                   Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding InstalledAt, StringFormat=Installed: {0:dd MMM yyyy HH:mm}}"
+                                                   FontSize="12" Foreground="{DynamicResource StitchTextSecondary}" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Button Content="PLAY" Height="40" FontSize="13" FontWeight="Bold"
+                                                Background="{DynamicResource StitchPrimary}" Foreground="White" BorderThickness="0"
+                                                materialDesign:ButtonAssist.CornerRadius="6" Margin="0,0,8,0"
+                                                Click="InstallPlay_Click"/>
+                                        <Button Content="Delete" Height="40" FontSize="13"
+                                                Background="Transparent" BorderBrush="{DynamicResource StitchBorder}" BorderThickness="1"
+                                                Foreground="{DynamicResource StitchTextSecondary}"
+                                                materialDesign:ButtonAssist.CornerRadius="6"
+                                                Click="InstallDelete_Click"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
 
             <!-- SETTINGS VIEW -->
@@ -120,10 +166,50 @@
                 
                 <TextBlock Grid.Row="0" Text="Settings" FontSize="32" FontWeight="Bold" Margin="0,0,0,24"/>
                 
-                <StackPanel Grid.Row="1" Width="400" HorizontalAlignment="Left">
-                    <TextBlock Text="SYSTEM CONFIGURATION" FontSize="13" FontWeight="Bold" Foreground="{StaticResource StitchTextSecondary}" Margin="0,0,0,16"/>
-                    <TextBox x:Name="TxtRamMb" materialDesign:HintAssist.Hint="Allocated RAM (MB)" Margin="0,0,0,16" Foreground="White" BorderBrush="{StaticResource StitchBorder}"/>
-                </StackPanel>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Width="560" HorizontalAlignment="Left">
+                        <TextBlock Text="SYSTEM CONFIGURATION" FontSize="13" FontWeight="Bold" Foreground="{DynamicResource StitchTextSecondary}" Margin="0,0,0,16"/>
+                        
+                        <CheckBox x:Name="ChkKeepLauncherOpen" Content="Keep launcher open after launching game"
+                                  FontSize="14" Margin="0,0,0,24"
+                                  Checked="KeepLauncherOpen_Changed" Unchecked="KeepLauncherOpen_Changed"/>
+                        
+                        <TextBlock Text="Theme" FontSize="12" Foreground="{DynamicResource StitchTextSecondary}" Margin="0,0,0,4"/>
+                        <ComboBox x:Name="CmbTheme" Margin="0,0,0,24" SelectionChanged="CmbTheme_SelectionChanged">
+                            <ComboBoxItem Content="Dark"/>
+                            <ComboBoxItem Content="Light"/>
+                            <ComboBoxItem Content="System"/>
+                        </ComboBox>
+                        
+                        <TextBlock Text="Default Install Directory" FontSize="12" Foreground="{DynamicResource StitchTextSecondary}" Margin="0,0,0,4"/>
+                        <Grid Margin="0,0,0,24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TxtInstallDirectory" Grid.Column="0" Padding="8,6" VerticalContentAlignment="Center"
+                                     BorderBrush="{DynamicResource StitchBorder}" TextChanged="TxtInstallDirectory_TextChanged"/>
+                            <Button Grid.Column="1" Content="Browse..." Margin="8,0,0,0" Height="40" FontSize="13"
+                                    Background="Transparent" BorderBrush="{DynamicResource StitchBorder}" BorderThickness="1"
+                                    Foreground="{DynamicResource StitchTextPrimary}" materialDesign:ButtonAssist.CornerRadius="6"
+                                    Click="BrowseDirectory_Click"/>
+                        </Grid>
+                        
+                        <TextBlock Text="Allocated Memory (RAM)" FontSize="12" Foreground="{DynamicResource StitchTextSecondary}" Margin="0,0,0,4"/>
+                        <Grid Margin="0,0,0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider x:Name="SldRamMb" Grid.Column="0" Minimum="1024" Maximum="16384" TickFrequency="256"
+                                    IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                                    ValueChanged="SldRamMb_ValueChanged"/>
+                            <TextBlock x:Name="LblRamValue" Grid.Column="1" Text="4 GB" FontSize="14" FontWeight="SemiBold"
+                                       Margin="16,0,0,0" VerticalAlignment="Center"/>
+                        </Grid>
+                        <TextBlock x:Name="LblRamHint" Text="Min 1 GB" FontSize="11" Foreground="{DynamicResource StitchTextSecondary}" Margin="2,0,0,8"/>
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
         </Grid>
     </Grid>
