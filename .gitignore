@@ -1,0 +1,37 @@
+# Visual Studio / .NET
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.dbmdl
+*.jfm
+*.pvc
+*.ide
+
+# Log files
+*.log
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder cache/konfigurasi user spesifik
+.vscode/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Mac OS X
+.DS_Store
