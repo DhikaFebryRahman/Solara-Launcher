@@ -7,16 +7,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
                 
-                <!-- Custom Stitch Colors (Dibutuhkan oleh Frontend) -->
-                <ResourceDictionary>
-                    <SolidColorBrush x:Key="StitchBackground" Color="#111319" />
-                    <SolidColorBrush x:Key="StitchSurface" Color="#171A23" />
-                    <SolidColorBrush x:Key="StitchSurfaceOverlay" Color="#1E2330" />
-                    <SolidColorBrush x:Key="StitchPrimary" Color="#7C5CFC" />
-                    <SolidColorBrush x:Key="StitchBorder" Color="#2A3040" />
-                    <SolidColorBrush x:Key="StitchTextPrimary" Color="#E2E2EB" />
-                    <SolidColorBrush x:Key="StitchTextSecondary" Color="#C9C4D8" />
-                </ResourceDictionary>
+                <!-- Default Theme untuk mencegah XAML parsing error -->
+                <ResourceDictionary Source="pack://application:,,,/Resources/Themes/Dark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

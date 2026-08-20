@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -18,6 +19,7 @@ namespace MinecraftLauncher
         private readonly InstallationStore _installStore = new();
         private long _totalRamMb = 16384;
         private bool _initializing = true;
+        private bool _gameRunning;
 
         public MainWindow()
         {
@@ -122,6 +124,8 @@ namespace MinecraftLauncher
 
         private async void BtnLaunch_Click(object sender, RoutedEventArgs e)
         {
+            if (_gameRunning) return;
+
             if (string.IsNullOrWhiteSpace(TxtPlayerName.Text) || string.IsNullOrWhiteSpace(CmbVersion.Text))
             {
                 MessageBox.Show("Player Name and Version are required.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -134,6 +138,8 @@ namespace MinecraftLauncher
 
         private async Task LaunchSelectedVersionAsync()
         {
+            if (_gameRunning) return;
+
             SetBusy(true);
             LblStatus.Text = "Memulai instalasi...";
 
@@ -155,23 +161,43 @@ namespace MinecraftLauncher
                 RefreshInstallations();
 
                 progress.Report("Memulai permainan...");
-                GameLauncher.Launch(installResult, _config.PlayerName, _config.RamMb);
+                Process gameProcess = GameLauncher.Launch(installResult, _config.PlayerName, _config.RamMb);
+                _gameRunning = true;
 
-                if (!_config.KeepLauncherOpen)
+                if (_config.KeepLauncherOpen)
                 {
-                    this.Close();
+                    LblStatus.Text = "Game berjalan. Launcher tetap terbuka.";
                 }
                 else
                 {
-                    LblStatus.Text = "Game berjalan. Launcher tetap terbuka.";
-                    SetBusy(false);
+                    this.Hide();
+                }
+
+                await gameProcess.WaitForExitAsync();
+
+                _gameRunning = false;
+                LblStatus.Text = "Ready";
+                SetBusy(false);
+
+                if (!this.IsVisible)
+                {
+                    this.Show();
+                    this.Activate();
+                    this.Topmost = true;
+                    this.Topmost = false;
                 }
             }
             catch (Exception ex)
             {
+                _gameRunning = false;
                 MessageBox.Show($"Gagal memulai permainan: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 LblStatus.Text = "Error";
                 SetBusy(false);
+
+                if (!this.IsVisible)
+                {
+                    this.Show();
+                }
             }
         }
 
@@ -267,8 +293,13 @@ namespace MinecraftLauncher
             if (LblRamValue == null || LblRamHint == null) return;
 
             double gb = ramMb / 1024.0;
-            LblRamValue.Text = gb == Math.Floor(gb) ? $"{gb:0} GB" : $"{gb:0.#} GB";
-            LblRamHint.Text = $"Min 1 GB • Max {Math.Max(1, _totalRamMb / 1024)} GB";
+            double totalGb = _totalRamMb / 1024.0;
+            
+            string gbText = gb == Math.Floor(gb) ? $"{gb:0} GB" : $"{gb:0.#} GB";
+            string totalText = totalGb == Math.Floor(totalGb) ? $"{totalGb:0} GB" : $"{totalGb:0.#} GB";
+            
+            LblRamValue.Text = $"{gbText} / {totalText}";
+            LblRamHint.Text = $"Alokasi saat ini: {ramMb} MB dari {_totalRamMb} MB";
         }
 
         [StructLayout(LayoutKind.Sequential)]
